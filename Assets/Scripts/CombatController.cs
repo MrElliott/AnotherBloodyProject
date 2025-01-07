@@ -5,8 +5,10 @@ public class CombatController : MonoBehaviour
     private Animator animator;
 
     private string Attack = "Attack";
+    private string CanAttack = "CanAttack";
     
     private bool attacking = false;
+    private bool localCanAttack = true;
 
     private Transform weaponLeft;
     private Transform weaponRight;
@@ -42,6 +44,7 @@ public class CombatController : MonoBehaviour
     public void AnimStart(){
         //Debug.Log("AnimStart");
         attacking = false;
+        localCanAttack = false;
         UpdateVariables();
 
         if (rightWeaponCollider != null){
@@ -54,9 +57,12 @@ public class CombatController : MonoBehaviour
         if (rightWeaponCollider != null)
             rightWeaponCollider.enabled = false;
 
+        localCanAttack = true;
+        UpdateVariables();
     }
 
     private void UpdateVariables(){
         animator.SetBool(Attack, attacking);
+        animator.SetBool(CanAttack, localCanAttack);
     }
 }
